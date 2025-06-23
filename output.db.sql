@@ -28,9 +28,9 @@ CREATE TABLE IF NOT EXISTS `appendix_b_p2_conversion`(
 	`critical`	REAL,
 	`moderate`	REAL,
 	`minor`	REAL,
-	`critical.1`	LONGTEXT,
-	`moderate.1`	LONGTEXT,
-	`minor.1`	LONGTEXT
+	`critical (pharm qualitative)`	LONGTEXT,
+	`moderate (pharm qualitative)`	LONGTEXT,
+	`minor (pharm qualitative)`	LONGTEXT
 );
 DROP TABLE IF EXISTS `HSHA-PARENTERAL-INFUSION`;
 CREATE TABLE IF NOT EXISTS `HSHA-PARENTERAL-INFUSION` (
@@ -152,7 +152,7 @@ VALUES ('HS.PIT.1.4','Air or gas is administered to the patient (> 4nL to <= 1 m
  ('HS.PIT.7.1','Patient is exposed to a product containing endotoxins or pyrogens exceeding acceptable limits',NULL,NULL,2,2.0,NULL,NULL);
 
 
-INSERT INTO `appendix_b_p2_conversion` (`hazardous_situation_id`,`critical_qualitative`,`moderate_qualitative`,`minor_qualitative`,`critical_semi_quantitative`,`moderate_semi_quantitative`,`minor_semi_quantitative`,`propability_of_hazardous_situation_(p1)`,`critical`,`moderate`,`minor`,`critical.1`,`moderate.1`,`minor.1`) 
+INSERT INTO `appendix_b_p2_conversion` (`hazardous_situation_id`,`critical_qualitative`,`moderate_qualitative`,`minor_qualitative`,`critical_semi_quantitative`,`moderate_semi_quantitative`,`minor_semi_quantitative`,`propability_of_hazardous_situation_(p1)`,`critical`,`moderate`,`minor`,`critical (pharm qualitative)`,`moderate (pharm qualitative)`,`minor (pharm qualitative)`) 
 VALUES ('HS.PIT.1.4','Exceptional','Rare','Expected',1.0,2.0,7.0,1.0,1.0,2.0,7.0,'Medium','Low','Low'),
  ('HS.PIT.1.5','Rare','Occasional','Expected',2.0,3.0,7.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
  ('HS.PIT.1.6','Occasional','Expected','Exceptional',3.0,7.0,1.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
@@ -1981,3 +1981,4 @@ Urticaria, pruritis, orofacial edema, angioedema, rhinoconjunctivitis, dysphagia
 (7)','Rare
 (2)','See Appendix G - MOR','See Appendix G - MOR','See Appendix G - MOR',2,'High','Medium','Low',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);*/
 COMMIT;
+
