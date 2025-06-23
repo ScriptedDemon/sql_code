@@ -1,5 +1,6 @@
 
 START TRANSACTION;
+DROP database if EXISTS new_db;
 CREATE database new_db;
 use new_db;
 DROP TABLE IF EXISTS `Appendix C - P1`;
@@ -13,6 +14,7 @@ CREATE TABLE IF NOT EXISTS `Appendix C - P1` (
 	`ucl`	REAL,
 	`ucl_value_for_each_plants`	REAL
 );
+
 DROP TABLE IF EXISTS `appendix_b_p2_conversion`;
 CREATE TABLE IF NOT EXISTS `appendix_b_p2_conversion`(
 	`hazardous_situation_id`	LONGTEXT,
@@ -47,8 +49,8 @@ CREATE TABLE IF NOT EXISTS `HSHA-PARENTERAL-INFUSION` (
 	`minor`	LONGTEXT,
 	`criticality_ranking`	INTEGER
 );
-DROP TABLE IF EXISTS `Appendix A - Global Ract`;
-CREATE TABLE IF NOT EXISTS `Appendix A - Global Ract` (
+-- DROP TABLE IF EXISTS `Appendix A - Global Ract`;
+/* CREATE TABLE IF NOT EXISTS `Appendix A - Global Ract` (
 	`ract_number`	LONGTEXT,
 	`hazardous_situation_id`	LONGTEXT,
 	`hazard_(potential_source_of_harm)`	LONGTEXT,
@@ -81,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `Appendix A - Global Ract` (
 	`unnamed:_29`	REAL,
 	`unnamed:_30`	REAL,
 	`column1`	REAL
-);
+);*/
 INSERT INTO `Appendix C - P1` (`hs_id`,`hazardous_situation`,`selected_p1_rationale`,`p1_predicted_by_subject_matter_expertise`,`p1`,`data_summary_derived_p1`,`ucl`,`ucl_value_for_each_plants`) 
 VALUES ('HS.PIT.1.4','Air or gas is administered to the patient (> 4nL to <= 1 mL)',NULL,NULL,1,1.0,NULL,NULL),
  ('HS.PIT.1.5','Air or gas is administered to the patient (> 1 mL to <= 10 mL)',NULL,NULL,1,1.0,NULL,NULL),
@@ -148,9 +150,10 @@ VALUES ('HS.PIT.1.4','Air or gas is administered to the patient (> 4nL to <= 1 m
  ('HS.PIT.6.2','End user is exposed to burning components or smoke',NULL,NULL,1,1.0,1.0,NULL),
  ('HS.PIT.6.3','End user is exposed to fire',NULL,NULL,1,1.0,1.0,NULL),
  ('HS.PIT.7.1','Patient is exposed to a product containing endotoxins or pyrogens exceeding acceptable limits',NULL,NULL,2,2.0,NULL,NULL);
-INSERT INTO `appendix_b_p2_conversion` (`hazardous_situation_id`,`critical_qualitative`,`moderate_qualitative`,`minor_qualitative`,`critical_semi-quantitative`,`moderate_semi-quantitative`,`minor_semi-quantitative`,`propability_of_hazardous_situation_(p1)`,`critical`,`moderate`,`minor`,`critical.1`,`moderate.1`,`minor.1`) 
-VALUES 
-('HS.PIT.1.4','Exceptional','Rare','Expected',1.0,2.0,7.0,1.0,1.0,2.0,7.0,'Medium','Low','Low'),
+
+
+INSERT INTO `appendix_b_p2_conversion` (`hazardous_situation_id`,`critical_qualitative`,`moderate_qualitative`,`minor_qualitative`,`critical_semi_quantitative`,`moderate_semi_quantitative`,`minor_semi_quantitative`,`propability_of_hazardous_situation_(p1)`,`critical`,`moderate`,`minor`,`critical.1`,`moderate.1`,`minor.1`) 
+VALUES ('HS.PIT.1.4','Exceptional','Rare','Expected',1.0,2.0,7.0,1.0,1.0,2.0,7.0,'Medium','Low','Low'),
  ('HS.PIT.1.5','Rare','Occasional','Expected',2.0,3.0,7.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
  ('HS.PIT.1.6','Occasional','Expected','Exceptional',3.0,7.0,1.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
  ('HS.PIT.1.7','Expected','Rare','Exceptional',7.0,2.0,1.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
@@ -215,9 +218,10 @@ VALUES
  ('HS.PIT.6.2','Rare','Occasional','Expected',2.0,3.0,7.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
  ('HS.PIT.6.3','Occasional','Periodic','Expected',3.0,4.0,7.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
  ('HS.PIT.7.1','Periodic','Expected','Rare',4.0,7.0,2.0,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO `HSHA-PARENTERAL-INFUSION` (`new_hsnumber`,`hazard`,`hazardous_situation`,`harm`,`core_infusion_/_large_volume_pump`,`syringe_pump`,`pain_pumps`,`therapeutic_drug`,`compounding`,`parenteral_nutrition`,`critical`,`moderate`,`minor`,`criticality_ranking`) 
-VALUES 
-('HS.PIT.1.1','Air or Gas in System','Air or gas is administered to the patient (>= 4 nL to 10 µL)','Pain, neurological changes,  decreased oxygenation, seizures, arrhythmia, pulmonary hypertension, stroke, cardiac and/or respiratory arrest
+ 
+ 
+INSERT INTO `HSHA-PARENTERAL-INFUSION` (`new_hsnumber`,`hazard`,`hazardous_situation`,`harm`,`core_infusion_/_large_volume_pump`,`syringe_pump`,`pain_pumps`,`therapeutic_drug`,`compounding`,`parenteral_nutrition`,`critical`,`moderate`,`minor`,`criticality_ranking`)
+VALUES ('HS.PIT.1.1','Air or Gas in System','Air or gas is administered to the patient (>= 4 nL to 10 µL)','Pain, neurological changes,  decreased oxygenation, seizures, arrhythmia, pulmonary hypertension, stroke, cardiac and/or respiratory arrest
 ','A','- IV Syringe Set ','- Ambulatory Pump 
 - Ambulatory Pump Sets',NULL,NULL,NULL,'Exceptional','Exceptional','Expected',40),
  ('HS.PIT.1.2','Air or Gas in System','Air or gas is administered to the patient (> 10 µL to <= 50 µL)','Pain, neurological changes,  decreased oxygenation, seizures, arrhythmia, pulmonary hypertension, stroke,  cardiac and/or respiratory arrest','- LVP','- IV Syringe Set ','- Ambulatory Pump 
@@ -1711,7 +1715,7 @@ Urticaria, pruritis, orofacial edema, angioedema, rhinoconjunctivitis, dysphagia
 - Empty Containers (Non Nutrition) 
 - Empty Containers (Nutrition) ','- Pre-mix TPN/PPN Injection w/wo Electrolytes 
 - Intravenous Fat Emulsions    ','Often','Expected','Rare',80);
-INSERT INTO `appendix a - global ract` (`ract_number_(enter_a_unique_integer_to_identify_the_row_in_the_table)`,`hazardous_situation_id_(a_unique_number_to_identify_the_hazardous_situation)`,`hazard_(potential_source_of_harm)`,`hazardous_situation_(circumstance_in_which_people,_property,_or_the_environment_are_exposed_to_one_or_more_hazard(s))`,`harm_(description_of_the_physical_injury_or_damage_to_the_health_of_people)`,`inherent_probability_of_critical_harm_(results_in_permanent_impairment_of_function,_or_life-threatening_injury_requiring_additional_medical_interventions,_or_death)`,`inherent_probability_of_moderate_harm_(results_in_temporary_or_non-life_threatening_injury/impairment_that_requires_escalation_of_care/additional_medical_interventions_or_results_in_permanent_injury_that_does_not_result_in_loss_of_function)`,`inherent_probability_of_minor_harm_(results_in_no_harm_or_an_asymptomatic_or_minimally_symptomatic_patient_not_requiring_any_intervention_or_a_patient_with_a_temporary_injury/impairment_that_does_not_require_escalation_of_care_or_additional_medical_interv`,`foreseeable_sequence_of_events_-_fsoe_(circumstances,_including_normal_use,_that_can_lead_to_a_hazardous_situation)`,`risk_reduction_(identify_the_highest_level_method(s)_to_prevent_the_hazardous_situation_from_occurring)`,`demonstration_of_effectiveness_(describe_the_evidence_that_demonstrates_effectiveness_of_the_risk_reduction(s))`,`residual_probability_of_hazardous_situation_(p1)_(determine_the_residual_probability_(post-mitigations)_of_the_hazardous_situation_occuring,_considering_foreseeable_sequences_resulting_from_use,_design,_and_manufacturing,_with_all_risk_reductions_effectiv`,`residual_probability_of_critical_harm_(pharm)_(results_in_permanent_impairment_of_function,_or_life-threatening_injury_requiring_additional_medical_interventions,_or_death)`,`residual_probability_of_moderate_harm_(pharm)_(results_in_temporary_or_non-life_threatening_injury/impairment_that_requires_escalation_of_care/additional_medical_interventions_or_results_in_permanent_injury_that_does_not_result_in_loss_of_function)`,`residual_probability_of_minor_harm_(pharm)_(results_in_no_harm_or_an_asymptomatic_or_minimally_symptomatic_patient_not_requiring_any_intervention_or_a_patient_with_a_temporary_injury/impairment_that_does_not_require_escalation_of_care_or_additional_medica`,`unnamed:_15`,`unnamed:_16`,`unnamed:_17`,`unnamed:_18`,`unnamed:_19`,`unnamed:_20`,`unnamed:_21`,`unnamed:_22`,`unnamed:_23`,`unnamed:_24`,`unnamed:_25`,`unnamed:_26`,`unnamed:_27`,`unnamed:_28`,`unnamed:_29`,`unnamed:_30`,`column1`) VALUES ('RACT.BOTTLEVIAL.001','HS.PIT.1.4','Air or Gas in System','Air or gas is administered to the patient (> 4nL to <= 1 mL)','Pain, neurological changes,  decreased oxygenation, seizures, arrhythmia, pulmonary hypertension,  stroke, cardiac  and/or respiratory arrest','Exceptional
+/*INSERT INTO `appendix a - global ract` (`ract_number_(enter_a_unique_integer_to_identify_the_row_in_the_table)`,`hazardous_situation_id_(a_unique_number_to_identify_the_hazardous_situation)`,`hazard_(potential_source_of_harm)`,`hazardous_situation_(circumstance_in_which_people,_property,_or_the_environment_are_exposed_to_one_or_more_hazard(s))`,`harm_(description_of_the_physical_injury_or_damage_to_the_health_of_people)`,`inherent_probability_of_critical_harm_(results_in_permanent_impairment_of_function,_or_life-threatening_injury_requiring_additional_medical_interventions,_or_death)`,`inherent_probability_of_moderate_harm_(results_in_temporary_or_non-life_threatening_injury/impairment_that_requires_escalation_of_care/additional_medical_interventions_or_results_in_permanent_injury_that_does_not_result_in_loss_of_function)`,`inherent_probability_of_minor_harm_(results_in_no_harm_or_an_asymptomatic_or_minimally_symptomatic_patient_not_requiring_any_intervention_or_a_patient_with_a_temporary_injury/impairment_that_does_not_require_escalation_of_care_or_additional_medical_interv`,`foreseeable_sequence_of_events_-_fsoe_(circumstances,_including_normal_use,_that_can_lead_to_a_hazardous_situation)`,`risk_reduction_(identify_the_highest_level_method(s)_to_prevent_the_hazardous_situation_from_occurring)`,`demonstration_of_effectiveness_(describe_the_evidence_that_demonstrates_effectiveness_of_the_risk_reduction(s))`,`residual_probability_of_hazardous_situation_(p1)_(determine_the_residual_probability_(post-mitigations)_of_the_hazardous_situation_occuring,_considering_foreseeable_sequences_resulting_from_use,_design,_and_manufacturing,_with_all_risk_reductions_effectiv`,`residual_probability_of_critical_harm_(pharm)_(results_in_permanent_impairment_of_function,_or_life-threatening_injury_requiring_additional_medical_interventions,_or_death)`,`residual_probability_of_moderate_harm_(pharm)_(results_in_temporary_or_non-life_threatening_injury/impairment_that_requires_escalation_of_care/additional_medical_interventions_or_results_in_permanent_injury_that_does_not_result_in_loss_of_function)`,`residual_probability_of_minor_harm_(pharm)_(results_in_no_harm_or_an_asymptomatic_or_minimally_symptomatic_patient_not_requiring_any_intervention_or_a_patient_with_a_temporary_injury/impairment_that_does_not_require_escalation_of_care_or_additional_medica`,`unnamed:_15`,`unnamed:_16`,`unnamed:_17`,`unnamed:_18`,`unnamed:_19`,`unnamed:_20`,`unnamed:_21`,`unnamed:_22`,`unnamed:_23`,`unnamed:_24`,`unnamed:_25`,`unnamed:_26`,`unnamed:_27`,`unnamed:_28`,`unnamed:_29`,`unnamed:_30`,`column1`) VALUES ('RACT.BOTTLEVIAL.001','HS.PIT.1.4','Air or Gas in System','Air or gas is administered to the patient (> 4nL to <= 1 mL)','Pain, neurological changes,  decreased oxygenation, seizures, arrhythmia, pulmonary hypertension,  stroke, cardiac  and/or respiratory arrest','Exceptional
 (1)','Rare
 (2)','Expected
 (7)','See Appendix G - MOR','See Appendix G - MOR','See Appendix G - MOR',1,'Medium','Low','Low',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
@@ -1975,5 +1979,5 @@ Urticaria, pruritis, orofacial edema, angioedema, rhinoconjunctivitis, dysphagia
  ('RACT.BOTTLEVIAL.065','HS.PIT.7.1','Endotoxins or Pyrogens','Patient is exposed to a product containing endotoxins or pyrogens exceeding acceptable limits','Fever, chills, flushing, dyspnea, hemorrhage, toxic shock, organ damage/failure, death','Periodic
 (4)','Expected
 (7)','Rare
-(2)','See Appendix G - MOR','See Appendix G - MOR','See Appendix G - MOR',2,'High','Medium','Low',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+(2)','See Appendix G - MOR','See Appendix G - MOR','See Appendix G - MOR',2,'High','Medium','Low',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);*/
 COMMIT;
